@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/templates/Product/product.module.scss"],"names":["module","exports","cardTop"],"mappings":"mRACAA,EAAAC,QAAA,CAAkBC,QAAA","file":"styles-6e3bbbeba19cdc514d00.js","sourcesContent":["// extracted by mini-css-extract-plugin\nmodule.exports = {\"cardTop\":\"product-module--card-top--39Gwd\"};"],"sourceRoot":""}
