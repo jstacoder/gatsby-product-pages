@@ -2,12 +2,12 @@ module.exports = {
   siteMetadata: {
     title: 'Your Store',
     description: 'Gatsby starter for a store',
-    siteUrl: 'https://gatstrap.netlify.com',
+    siteUrl: 'https://jstacoder.github.io/gatsby-product-pages',
     author: 'jstacoder',
     twitter: 'jstacoder',
     adsense: '',
   },
-  pathPrefix: '/',
+  pathPrefix: 'gatsby-product-pages/',
   plugins: [
     {
       resolve: 'gatsby-source-filesystem',

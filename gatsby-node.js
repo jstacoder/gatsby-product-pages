@@ -140,6 +140,16 @@ exports.createPages = ({ graphql, actions }, pluginOptions) => {
         })
         // create product pages
         const products = data.allProductsYaml.products
+        createPage({
+          path: '/products',
+          component: path.resolve('./src/templates/products/index.js'),
+          context: {
+            products,
+            images: products.map(
+              product => product.images && product.images[0]
+            ),
+          },
+        })
         products.forEach(product => {
           console.log(product, product.images)
           createPage({
@@ -177,9 +187,13 @@ exports.createPages = ({ graphql, actions }, pluginOptions) => {
     )
   })
 }
-
-exports.onCreateWebpackConfig = ({ actions }) => {
+exports.onCreateWebpackConfig = ({ actions, ...rest }) => {
+  // console.log(rest)
   actions.setWebpackConfig({
+    // ...getWebpackConfig(),
+    // output: {
+    //   path: 'D:\\\\git\\\\gatsby-product-pages\\\\docs'
+    // },
     resolve: {
       alias: {
         components: path.resolve(__dirname, 'src/components'),
