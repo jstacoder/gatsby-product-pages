@@ -4,6 +4,8 @@
   "version": "2.0.1",
   "author": "Futoshi Iwashita <jaxx2104@gmail.com>",
   "dependencies": {
+    "@babel/register": "^7.4.4",
+    "esm": "^3.2.25",
     "gatsby": "2.8.3",
     "gatsby-image": "2.1.2",
     "gatsby-link": "2.1.1",
@@ -30,7 +32,16 @@
     "gatsby-transformer-json": "^2.1.11",
     "gatsby-transformer-remark": "2.3.12",
     "gatsby-transformer-sharp": "2.1.21",
-    "gatsby-transformer-yaml": "^2.1.12"
+    "gatsby-transformer-yaml": "^2.1.12",
+    "gulp": "^4.0.2",
+    "gulp-execa": "^0.6.1",
+    "gulp-run-command": "^0.0.9",
+    "react-octicon": "^3.0.1",
+    "react-octicons": "^0.2.0",
+    "styled-bootstrap": "^0.1.10",
+    "styled-bootstrap-components": "^4.0.0-alpha.0",
+    "styled-bootstrap-grid": "^3.0.3",
+    "styled-components": "^4.2.1"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "1.2.19",

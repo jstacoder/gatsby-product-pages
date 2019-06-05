@@ -3,40 +3,49 @@ const Promise = require('bluebird')
 const path = require('path')
 const PostTemplate = path.resolve('./src/templates/index.js')
 
+exports.sourceNodes = ({ actions, schema }) => {
+  const { createNode, createTypes } = actions
 
+  const typeDefs = `
+    type ProductsYaml implements Node {
+      categories: [ProductCategory]!
+    }
+  `
+  createTypes(typeDefs)
 
-
-exports.sourceNodes = ({actions}) =>{
-  const { createNode } = actions
-}
-
-exports.setFieldsOnGraphQLNodeType = ({graphql, type, ...rest}, ...restList) =>{
-  console.log(graphql)
-  console.log('rest',  rest)
-  console.log('restlist',restList)
-  
-  if(type.name === 'ProductsYaml'){
-    return {
-      name: type.name,
+  createTypes([
+    schema.buildObjectType({
+      name: `ProductsYaml`,
       fields: {
         categories: {
-          type: graphql.ListType
-        }
-      }
-    }
-  }
+          type: '[ProductCategory]!',
+          resolve: (source, args, context, info) => {
+            const categories = source[info.fieldName]
+            return (
+              categories && categories.map(category => ({ name: category }))
+            )
+          },
+        },
+      },
+    }),
+  ])
 }
 
 exports.onCreateNode = ({
-  createNodeId, createContentDigest, actions, node, getNode}) =>{
+  createNodeId,
+  createContentDigest,
+  actions,
+  node,
+  getNode,
+}) => {
   console.log(node.internal.type)
   const { createNode } = actions
   const cats = new Set()
-  
-  if(node.internal.type==='ProductsYaml'){
+
+  if (node.internal.type === 'ProductsYaml') {
     console.log(node)
     const { categories } = node
-    categories.forEach(category =>{
+    categories.forEach(category => {
       const categoryId = createNodeId(category)
       const categoryMeta = {
         id: categoryId,
@@ -46,22 +55,52 @@ exports.onCreateNode = ({
         internal: {
           type: 'ProductCategory',
           content: category,
-          contentDigest: createContentDigest(category)
-        }
+          contentDigest: createContentDigest(category),
+        },
       }
       createNode(categoryMeta)
     })
   }
 }
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = ({ graphql, actions }, pluginOptions) => {
   const { createPage } = actions
 
   return new Promise((resolve, reject) => {
+    // language=GraphQL
     resolve(
       graphql(
         `
           {
+            allProductsYaml {
+              products: nodes {
+                id
+                name
+                images
+              }
+            }
+            images: allFile {
+              nodes {
+                base
+                childImageSharp {
+                  fixed(width: 400) {
+                    src
+                    originalName
+                  }
+                }
+              }
+            }
+            allProductCategory {
+              categories: nodes {
+                name
+                product: parent {
+                  ... on ProductsYaml {
+                    id
+                    name
+                  }
+                }
+              }
+            }
             allFile(filter: { extension: { regex: "/md|js/" } }, limit: 1000) {
               edges {
                 node {
@@ -85,7 +124,33 @@ exports.createPages = ({ graphql, actions }) => {
           console.log(errors)
           reject(errors)
         }
-
+        const {
+          allProductCategory: { categories },
+        } = data
+        console.log(categories)
+        categories.forEach(category => {
+          createPage({
+            path: `/category/${category.name.replace(' ', '-')}`,
+            component: path.resolve(`./src/templates/Category/index.js`),
+            context: {
+              category: category.name,
+              product: category.product,
+            },
+          })
+        })
+        // create product pages
+        const products = data.allProductsYaml.products
+        products.forEach(product => {
+          console.log(product, product.images)
+          createPage({
+            path: `/products/${product.name}`,
+            component: path.resolve('./src/templates/Product/index.js'),
+            context: {
+              id: product.id,
+              image: (product.images && product.images[0]) || null,
+            },
+          })
+        })
         // Create blog posts & pages.
         const items = data.allFile.edges
         const posts = items.filter(({ node }) => /posts/.test(node.name))
