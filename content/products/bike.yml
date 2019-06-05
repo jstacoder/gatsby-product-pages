@@ -1,0 +1,10 @@
+name: bike
+title: Bike
+
+description: 
+    a cool looking bike
+price: 55.15
+categories:
+  - fitness
+  - sports
+  - toys

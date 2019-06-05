@@ -24,6 +24,13 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/content/products/`,
+        name: 'products',
+      },
+    },
+    {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
@@ -95,5 +102,7 @@ module.exports = {
     'gatsby-plugin-sitemap',
     'gatsby-plugin-twitter',
     'gatsby-transformer-sharp',
+    'gatsby-transformer-yaml',
+    'gatsby-transformer-json',
   ],
 }

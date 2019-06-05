@@ -5577,6 +5577,14 @@ gatsby-telemetry@^1.0.11:
     stack-utils "1.0.2"
     uuid "3.3.2"
 
+gatsby-transformer-json@^2.1.11:
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/gatsby-transformer-json/-/gatsby-transformer-json-2.1.11.tgz#b1c9acbc0da6e7e11b7dd278e9543171a71ecd89"
+  integrity sha512-vVNjAV93c3aFbW6GJxG+rxuzr3Absadv9RYMaUh7OBhmSPYDyb+4JvaCvEfL+4P/ZEN3Ch4GNUD2eCNgfnF2tw==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    bluebird "^3.5.0"
+
 gatsby-transformer-remark@2.3.12:
   version "2.3.12"
   resolved "https://registry.yarnpkg.com/gatsby-transformer-remark/-/gatsby-transformer-remark-2.3.12.tgz#04ba4497a0f779582b19ad7c55d373609beaefeb"
@@ -5613,6 +5621,16 @@ gatsby-transformer-sharp@2.1.21:
     probe-image-size "^4.0.0"
     semver "^5.6.0"
     sharp "^0.22.1"
+
+gatsby-transformer-yaml@^2.1.12:
+  version "2.1.12"
+  resolved "https://registry.yarnpkg.com/gatsby-transformer-yaml/-/gatsby-transformer-yaml-2.1.12.tgz#2d1ee6ed6f399315d76caaa53888b02d2049bf31"
+  integrity sha512-KkRKb3ysNwYwBRE0kUA17gLHA5bg6NOmjf8OeSeHhNkJJrn8DQkRhqd8aGCXgfg5m7AeN7XU/5MGtF4uDXVM0A==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    js-yaml "^3.13.0"
+    lodash "^4.17.10"
+    unist-util-select "^1.5.0"
 
 gatsby@2.8.3:
   version "2.8.3"
@@ -7774,7 +7792,6 @@ listr-silent-renderer@^1.1.1:
 
 listr-update-renderer@^0.4.0:
   version "0.4.0"
-  uid "06073fa93166277607a7814f4e1f83960081414c"
   resolved "https://github.com/okonet/listr-update-renderer/tarball/upgrade-log-update#06073fa93166277607a7814f4e1f83960081414c"
   dependencies:
     chalk "^1.1.3"

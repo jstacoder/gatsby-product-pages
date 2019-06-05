@@ -3,6 +3,57 @@ const Promise = require('bluebird')
 const path = require('path')
 const PostTemplate = path.resolve('./src/templates/index.js')
 
+
+
+
+exports.sourceNodes = ({actions}) =>{
+  const { createNode } = actions
+}
+
+exports.setFieldsOnGraphQLNodeType = ({graphql, type, ...rest}, ...restList) =>{
+  console.log(graphql)
+  console.log('rest',  rest)
+  console.log('restlist',restList)
+  
+  if(type.name === 'ProductsYaml'){
+    return {
+      name: type.name,
+      fields: {
+        categories: {
+          type: graphql.ListType
+        }
+      }
+    }
+  }
+}
+
+exports.onCreateNode = ({
+  createNodeId, createContentDigest, actions, node, getNode}) =>{
+  console.log(node.internal.type)
+  const { createNode } = actions
+  const cats = new Set()
+  
+  if(node.internal.type==='ProductsYaml'){
+    console.log(node)
+    const { categories } = node
+    categories.forEach(category =>{
+      const categoryId = createNodeId(category)
+      const categoryMeta = {
+        id: categoryId,
+        parent: node.id,
+        children: [],
+        name: category,
+        internal: {
+          type: 'ProductCategory',
+          content: category,
+          contentDigest: createContentDigest(category)
+        }
+      }
+      createNode(categoryMeta)
+    })
+  }
+}
+
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
