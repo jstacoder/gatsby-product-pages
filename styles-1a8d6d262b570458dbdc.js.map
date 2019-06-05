@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/templates/Product/product.module.scss"],"names":["module","exports","cardTop"],"mappings":"mRACAA,EAAAC,QAAA,CAAkBC,QAAA","file":"styles-1a8d6d262b570458dbdc.js","sourcesContent":["// extracted by mini-css-extract-plugin\nmodule.exports = {\"cardTop\":\"product-module--card-top--ck8_w\"};"],"sourceRoot":""}
